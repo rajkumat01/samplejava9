@@ -50,8 +50,8 @@ pipeline {
             steps{
                 echo "Triggering Get snapshots for applicationName:${appName},deployableName:${deployName},changeSetId:${changeSetId}"
                 script{
-                    //changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}",outputFormat:"${outputFormat}")
-                    changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
+                    changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}",outputFormat:"${outputFormat}")
+                    //changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
                     echo "ChangeSet Result : ${changeSetResults}"
                     def changeSetResultsObject = readJSON text: changeSetResults
                          changeSetResultsObject.each {
