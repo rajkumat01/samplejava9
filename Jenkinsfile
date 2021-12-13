@@ -82,7 +82,7 @@ pipeline {
         stage('Deploy to the System'){
             steps{
                 echo "Devops Change trigger change request"
-                snDevOpsChange()
+                //snDevOpsChange()
             }
 
         }
