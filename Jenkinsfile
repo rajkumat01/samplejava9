@@ -2,8 +2,8 @@
     def appName='PerformanceApps0'
     def snapName=''
     //def deployName = 'TEST'
-    //def deployName ='PerfApp95_dep__1'	
-    def deployName ='PerformanceApps0_dep__0'
+    //def deployName ='App_1'	
+    def deployName ='Dep_1'
     def exportFormat ='json'
     def configFilePath = "paymentService"
     def fileNamePrefix ='exported_file_'
