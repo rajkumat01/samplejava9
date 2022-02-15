@@ -1,29 +1,25 @@
-    //def appName='E2E_App'
     def appName='App_1'
     def snapName=''
-    //def deployName = 'TEST'
-    //def deployName ='App_1'	
+
     def deployName ='Dep_1'
     def exportFormat ='json'
     def configFilePath = "paymentService"
     def fileNamePrefix ='exported_file_'
     def fullFileName="${appName}-${deployName}-${currentBuild.number}.${exportFormat}"
+   // def fullFileName="Comp_2"
     def changeSetId=""
     def snapshotName=""
     def exporterName ='returnAllData' 
-//by default it will be xml
-    def outputFormat = 'json'
 
-    // def namePath ="E2E/pipelineUpload/${currentBuild.number}"
-//    def namePath ='component1'
-    def namePath ="Comp_1/${JOB_NAME}/${currentBuild.number}"
+    def namePath ="Comp_2/${JOB_NAME}/${currentBuild.number}"
+//def namePath ="App_2/components/Comp_1${JOB_NAME}/"
 pipeline {
     agent any
     stages {
         stage('Clone repository') {               
            steps{
                 // checkout scm
-                git branch: 'master', url: 'https://github.com/vivekkaushik1/samplejava'
+                git branch: 'master', url: 'https://github.com/rajkumat01/samplejava2'
            }
         }     
         stage('Validate Configurtion file'){
@@ -31,7 +27,7 @@ pipeline {
                 script{
                     sh "echo validating configuration file ${configFilePath}.${exportFormat}"
                     echo "name path ::::: ${namePath}"
-                    changeSetId = snDevOpsConfigUpload(applicationName:"${appName}",target:'component',namePath:"${namePath}", configFile:"component1.json", autoCommit:true,autoValidate:true,dataFormat:"${exportFormat}")
+                    changeSetId = snDevOpsConfigUpload(applicationName:"${appName}",target:'component',namePath:"${namePath}", configFile:"fileB.json", autoCommit:true,autoValidate:true,dataFormat:"${exportFormat}")
                     // snDevOpsConfigUpload(applicationName:"${appName}",target:'deployable',namePath:"${namePath}", fileName:"deployable", autoCommit:'true',autoValidate:'true',dataFormat:"${exportFormat}",changesetNumber:"${changeSetId}", deployableName:"${deployName}")
                     echo "validation result $changeSetId"
                 }
@@ -50,8 +46,7 @@ pipeline {
             steps{
                 echo "Triggering Get snapshots for applicationName:${appName},deployableName:${deployName},changeSetId:${changeSetId}"
                 script{
-                    changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}",outputFormat:"${outputFormat}")
-                    //changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
+                    changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
                     echo "ChangeSet Result : ${changeSetResults}"
                     def changeSetResultsObject = readJSON text: changeSetResults
                          changeSetResultsObject.each {
