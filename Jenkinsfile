@@ -16,9 +16,9 @@ pipeline {
     agent any
     stages {
         
-        stage('E2E_Pipeline2_1') {
+        stage('E2E_Pipeline1_1') {
             steps {
-                echo "Running E2E_Pipeline2_1..........."
+                echo "Running E2E_Pipeline1_1..........."
                 echo "MY_PARAM=${env.MY_PARAM}"
             }
         }
