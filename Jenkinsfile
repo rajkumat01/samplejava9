@@ -15,6 +15,14 @@
 pipeline {
     agent any
     stages {
+        
+        stage('E2E_Pipeline2_1') {
+            steps {
+                echo "Running E2E_Pipeline2_1..........."
+                echo "MY_PARAM=${env.MY_PARAM}"
+            }
+        }
+        
         stage('Clone repository') {               
            steps{
                 // checkout scm
