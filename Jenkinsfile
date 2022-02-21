@@ -1,25 +1,24 @@
     def appName='App_1'
     def snapName=''
-
     def deployName ='Dep_1'
     def exportFormat ='json'
     def configFilePath = "paymentService"
     def fileNamePrefix ='exported_file_'
     def fullFileName="${appName}-${deployName}-${currentBuild.number}.${exportFormat}"
-   // def fullFileName="Comp_2"
     def changeSetId=""
     def snapshotName=""
     def exporterName ='returnAllData' 
 
-    def namePath ="Comp_2/${JOB_NAME}/${currentBuild.number}"
-//def namePath ="App_2/components/Comp_1${JOB_NAME}/"
+    //def namePath ="E2E/pipelineUpload/${currentBuild.number}"
+    def namePath ='Comp_2'
+    //def namePath ="Comp_2/${JOB_NAME}/${currentBuild.number}"
 pipeline {
     agent any
     stages {
         stage('Clone repository') {               
            steps{
                 // checkout scm
-                git branch: 'master', url: 'https://github.com/rajkumat01/samplejava2'
+                git branch: 'master', url: 'https://github.com/rajkumat01/samplejava1'
            }
         }     
         stage('Validate Configurtion file'){
@@ -37,7 +36,7 @@ pipeline {
             steps{
                 script{
                     echo "Change set registration for ${changeSetId}"
-                    changeSetRegResult = snDevOpsConfigRegisterChangeSet(changesetNumber:"${changeSetId}")
+                    changeSetRegResult = snDevOpsConfigRegisterPipeline(changesetNumber:"${changeSetId}")
                     echo "change set registration set result ${changeSetRegResult}"
                 }
             }
@@ -104,6 +103,13 @@ pipeline {
                 echo " ++++++++++++ END OF File content ***************"
                 echo "deploy finished successfully."
             }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Run E2ESamplePipeLine1_1!'
+            build job: 'E2ESamplePipeLine1_1', parameters: [string(name: 'MY_PARAM', value: 'value from Build pipeline')]
         }
     }
 }
