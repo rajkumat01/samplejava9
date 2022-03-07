@@ -2,7 +2,7 @@
     def snapName=''
     def deployName ='Dep_1'
     def exportFormat ='json'
-    def configFilePath = "paymentService"
+    def configFilePath = "fileB"
     def fileNamePrefix ='exported_file_'
     def fullFileName="${appName}-${deployName}-${currentBuild.number}.${exportFormat}"
     def changeSetId=""
@@ -21,7 +21,7 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/rajkumat01/samplejava1'
            }
         }     
-        stage('Validate Configurtion file'){
+        stage('Upload JSON'){
             steps{
                 script{
                     sh "echo validating configuration file ${configFilePath}.${exportFormat}"
@@ -32,7 +32,7 @@ pipeline {
                 }
             }
         }
-        stage("register change set to pipeline"){
+        stage("Committing the changeset"){
             steps{
                 script{
                     echo "Change set registration for ${changeSetId}"
@@ -41,7 +41,7 @@ pipeline {
                 }
             }
         }
-         stage("Get snapshots created"){
+         stage("SnapshotValidation and GetSnapshotsCreated"){
             steps{
                 echo "Triggering Get snapshots for applicationName:${appName},deployableName:${deployName},changeSetId:${changeSetId}"
                 script{
@@ -83,7 +83,7 @@ pipeline {
             }
 
         }
-        stage('Download Snapshots from Service Now') {
+        stage('Export Snapshot') {
             steps{
                 script{
                     echo "Exporting for App: ${appName} Deployable; ${deployName} Exporter name ${exporterName} "
