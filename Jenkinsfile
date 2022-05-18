@@ -107,9 +107,8 @@ pipeline {
     }
     
     post {
-        success {
+        
             echo 'Run E2ESamplePipeLine1_1!'
             build job: 'E2ESamplePipeLine1_1', parameters: [string(name: 'MY_PARAM', value: 'value from Build pipeline')]
-        }
     }
 }
