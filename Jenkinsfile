@@ -49,13 +49,14 @@ pipeline {
                     def x = ""
                     changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
                     def changeSetResultsObject = readJSON text: changeSetResults
+                    echo "debug: ${changeSetResultsObject.validation}"
                     
                     if(changeSetResultsObject.validation == "not_validated") {
-                        while(count <=50) {
+                        while (count <=50) {
                              x = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
                             def y = readJSON text: x
                             if(y.validation == "not_validated"){
-                                count++
+                               count++
                                  sleep(5)   
                              }
                              else {
