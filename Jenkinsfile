@@ -45,10 +45,31 @@ pipeline {
             steps{
                 echo "Triggering Get snapshots for applicationName:${appName},deployableName:${deployName},changeSetId:${changeSetId}"
                 script{
+                    def count = 1
+                    def x = ""
                     changeSetResults = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
-                    echo "ChangeSet Result : ${changeSetResults}"
                     def changeSetResultsObject = readJSON text: changeSetResults
-                         changeSetResultsObject.each {
+                    
+                    if(changeSetResultsObject.validation == "not_validated") {
+                        while(count <=50) {
+                             x = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
+                            def y = readJSON text: x
+                            if(y.validation == "not_validated"){
+                                count++
+                                 sleep(5)   
+                             }
+                             else {
+                                      break  
+                              }
+                        }
+                    }
+                    echo "Count : ${count}"
+
+
+                    //changeSetResults1 = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
+                    echo "ChangeSet Result : ${changeSetResults}"  
+                    def changeSetResultsObject = readJSON text:x
+                        changeSetResultsObject.each {
                            /* if(it.validation == "passed"){
                                 echo "validation passed for snapshot : ${it.name}"
                                 snapshotName = it.name
