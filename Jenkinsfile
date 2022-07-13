@@ -69,7 +69,7 @@ pipeline {
 
                     //changeSetResults1 = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
                     echo "ChangeSet Result : ${changeSetResults}"  
-                    def changeSetResultsObject1 = readJSON text:x
+                    def changeSetResultsObject1 = readJSON text: x
                         changeSetResultsObject1.each {
                            /* if(it.validation == "passed"){
                                 echo "validation passed for snapshot : ${it.name}"
