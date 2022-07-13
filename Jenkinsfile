@@ -52,7 +52,7 @@ pipeline {
                     echo "debug: ${changeSetResultsObject.validation}"
                     
                     if(changeSetResultsObject.validation == "not_validated") {
-                        for(int i = 1; i < 51; ++i)  {
+               for(int i = 1; i < 51; ++i)  {
                              x = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
                             def y = readJSON text: x
                             if(y.validation == "not_validated"){
@@ -62,7 +62,7 @@ pipeline {
                              else {
                                       break  
                               }
-                        }
+              }
                     }
                     echo "Count : ${count}"
 
