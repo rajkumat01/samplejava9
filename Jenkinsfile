@@ -64,7 +64,7 @@ pipeline {
                               }
               }
                     }
-                    echo "Count : ${count}"
+                    echo "Count : ${i}"
 
 
                     def changeSetResults1 = snDevOpsConfigGetSnapshots(applicationName:"${appName}",deployableName:"${deployName}",changesetNumber:"${changeSetId}")
