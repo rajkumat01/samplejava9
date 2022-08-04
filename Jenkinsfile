@@ -34,7 +34,7 @@ pipeline {
                 script{
                     sh "echo validating configuration file ${configFilePath}.${exportFormat}"
                     echo "name path ::::: ${namePath}"
-                    changeSetId = snDevOpsConfigUpload(applicationName:"${appName}",target:'component',namePath:"${namePath}", configFile:"fileB.json", autoCommit:true,autoValidate:true,dataFormat:"${exportFormat}")
+                    changeSetId = snDevOpsConfigUpload(applicationName:"${appName}",target:'component',namePath:"${namePath}", configFile:"fileB.json", autoCommit:true,autoValidate:false,dataFormat:"${exportFormat}")
                     // snDevOpsConfigUpload(applicationName:"${appName}",target:'deployable',namePath:"${namePath}", fileName:"deployable", autoCommit:'true',autoValidate:'true',dataFormat:"${exportFormat}",changesetNumber:"${changeSetId}", deployableName:"${deployName}")
                     echo "validation result $changeSetId"
                 }
@@ -49,7 +49,9 @@ pipeline {
                 }
             }
         }
-         stage("SnapshotValidation and GetSnapshotsCreated"){
+      
+      /*
+       stage("SnapshotValidation and GetSnapshotsCreated"){
             steps{
                 echo "Triggering Get snapshots for applicationName:${appName},deployableName:${deployName},changeSetId:${changeSetId}"
                 script{
@@ -63,7 +65,7 @@ pipeline {
                             }else{
                                 echo "Snapshot failed to get validated : ${it.name}" ;
                                 assert it.validation == "passed"
-                            }*/
+                            }/*
                             echo "validation passed for snapshot : ${it.name}"
                             snapshotName = it.name 
                         }
@@ -73,7 +75,7 @@ pipeline {
                   echo "Snapshot Name : ${snapshotName} "  
                 }
             }
-        }
+        }.
       
         stage('Publish the snapshot'){
             steps{
@@ -84,6 +86,8 @@ pipeline {
                 }
             }
         }
+*/
+
         stage('Deploy to the System'){
             steps{
                 echo "Devops Change trigger change request"
