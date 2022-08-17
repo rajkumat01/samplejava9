@@ -75,7 +75,7 @@ pipeline {
                   echo "Snapshot Name : ${snapshotName} "  
                 }
             }
-        }.
+        }
       
         stage('Publish the snapshot'){
             steps{
