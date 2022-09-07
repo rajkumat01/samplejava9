@@ -1,4 +1,4 @@
-    def appName='App_8'
+    def appName='App_9'
     def snapName=''
     def deployName ='Dep_1'
     def exportFormat ='json'
@@ -108,8 +108,8 @@ pipeline {
     
     post {
         success {
-            echo 'Run E2ESamplePipeLine8_1!'
-            build job: 'E2ESamplePipeLine8_1', parameters: [string(name: 'MY_PARAM', value: 'value from Build pipeline')]
+            echo 'Run E2ESamplePipeLine9_1!'
+            build job: 'E2ESamplePipeLine9_1', parameters: [string(name: 'MY_PARAM', value: 'value from Build pipeline')]
         }
     }
 }
