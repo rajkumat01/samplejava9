@@ -18,7 +18,7 @@ pipeline {
         stage('Clone repository') {               
            steps{
                 // checkout scm
-                git branch: 'master', url: 'https://github.com/rajkumat01/samplejava1'
+                git branch: 'master', url: 'https://github.com/rajkumat01/samplejava9'
            }
         }     
         stage('Upload JSON'){
